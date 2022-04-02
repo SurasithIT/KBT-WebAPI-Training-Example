@@ -8,7 +8,7 @@ namespace KBT.WebAPI.Training.Example.Services.Interfaces
 	{
 		List<Claim> GetPrincipalFromToken(string AccessToken, out string? userKey);
 
-		JwtToken GetRefreshToken(string userCode, string refreshToken);
+		JwtToken GetRefreshToken(int userKey, string refreshToken);
 
 		bool GenerateToken(int userKey, List<Claim> claims, bool deleteOldToken, string refreshTokenOld, out string accessToken, out string refreshToken, out DateTime accessTokenExpire);
 
