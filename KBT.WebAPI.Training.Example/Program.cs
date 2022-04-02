@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
 using System.Xml;
+using KBT.WebAPI.Training.Example.Entities.Demo;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +17,12 @@ log4net.Config.XmlConfigurator.Configure(repo, log4netConfig["log4net"]);
 
 try
 {
+    IConfiguration configuration = builder.Configuration;
+
     // Add services to the container.
+    builder.Services.AddDbContext<DemoDbContext>(options =>
+        options.UseSqlServer(configuration.GetConnectionString("DemoDatabase"))
+    );
 
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
