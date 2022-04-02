@@ -30,6 +30,7 @@
     <None Remove="Utils\" />
     <None Remove="Services\" />
     <None Remove="Services\Interfaces\" />
+    <None Remove="Infrastructures\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -41,6 +42,7 @@
     <Folder Include="Utils\" />
     <Folder Include="Services\" />
     <Folder Include="Services\Interfaces\" />
+    <Folder Include="Infrastructures\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KBT.WebAPI.Training.Example.Entities\KBT.WebAPI.Training.Example.Entities.csproj">

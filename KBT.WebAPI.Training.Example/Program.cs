@@ -2,6 +2,7 @@
 using System.Xml;
 using KBT.WebAPI.Training.Example.Entities.Demo;
 using KBT.WebAPI.Training.Example.Entities.JWT;
+using KBT.WebAPI.Training.Example.Infrastructures;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +29,9 @@ try
     builder.Services.AddDbContext<JwtDbContext>(options =>
         options.UseSqlite(configuration.GetConnectionString("JWTDatabase"))
     );
+
+    // Install all service injection
+    Installer.InstallService(builder.Services);
 
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
