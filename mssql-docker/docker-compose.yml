@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2019-CU15-ubuntu-20.04
+    # image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sql-server
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=KBTtestdb123
+    volumes:
+      - ./data:/var/opt/mssql
+      - ./create-database.sql:/app/create-database.sql

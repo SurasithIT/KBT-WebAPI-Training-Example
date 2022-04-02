@@ -1,0 +1,1 @@
+docker exec -it sql-server /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P KBTtestdb123 -d master -i /app/create-database.sql
