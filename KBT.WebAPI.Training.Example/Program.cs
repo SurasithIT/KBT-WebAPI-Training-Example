@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Xml;
 using KBT.WebAPI.Training.Example.Entities.Demo;
+using KBT.WebAPI.Training.Example.Entities.JWT;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,10 @@ try
         options.UseSqlServer(configuration.GetConnectionString("DemoDatabase"))
     );
 
+    builder.Services.AddDbContext<JwtDbContext>(options =>
+        options.UseSqlite(configuration.GetConnectionString("JWTDatabase"))
+    );
+
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
@@ -40,6 +45,13 @@ try
     });
 
     var app = builder.Build();
+
+    using (var scope = app.Services.CreateScope())
+    {
+        var dataContext = scope.ServiceProvider.GetRequiredService<JwtDbContext>();
+        dataContext.Database.EnsureCreated();
+        dataContext.Database.Migrate();
+    }
 
     // Add CORS
     app.UseCors("AllowAnyOrigin");

@@ -405,3 +405,4 @@ ASALocalRun/
 .localhistory/
 
 mssql-docker/data
+JWTDatabase.db*
