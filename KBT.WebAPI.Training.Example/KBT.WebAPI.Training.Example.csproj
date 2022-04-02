@@ -7,18 +7,36 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
     <PackageReference Include="log4net" Version="2.0.14" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.3.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.3.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.3.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="log4net" />
     <None Remove="Models\" />
-    <None Remove="Models\WeatherForecasts\" />
+    <None Remove="Swashbuckle.AspNetCore.Swagger" />
+    <None Remove="Swashbuckle.AspNetCore.SwaggerGen" />
+    <None Remove="Swashbuckle.AspNetCore.SwaggerUI" />
+    <None Remove="Swashbuckle.AspNetCore.Annotations" />
+    <None Remove="Models\Users\" />
+    <None Remove="Models\Requests\" />
+    <None Remove="Models\Requests\Users\" />
+    <None Remove="Models\Requests\Employees\" />
+    <None Remove="Models\Employees\" />
+    <None Remove="Utils\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Models\WeatherForecasts\" />
+    <Folder Include="Models\Users\" />
+    <Folder Include="Models\Requests\" />
+    <Folder Include="Models\Requests\Users\" />
+    <Folder Include="Models\Requests\Employees\" />
+    <Folder Include="Models\Employees\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KBT.WebAPI.Training.Example.Entities\KBT.WebAPI.Training.Example.Entities.csproj">
