@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using KBT.WebAPI.Training.Example.Models.WeatherForecasts;
+using Microsoft.AspNetCore.Mvc;
 
 namespace KBT.WebAPI.Training.Example.Controllers;
 
