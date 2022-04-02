@@ -11,6 +11,8 @@ using KBT.WebAPI.Training.Example.Models.Auths;
 using KBT.WebAPI.Training.Example.Models.Requests.Auths;
 using KBT.WebAPI.Training.Example.Services.Interfaces;
 using KBT.WebAPI.Training.Example.Utils;
+using KBT.WebAPI.Training.Example.Utils.Swagger;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -18,9 +20,11 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace KBT.WebAPI.Training.Example.Controllers
 {
+    [Authorize]
     [ApiController]
     [Produces(MediaTypeNames.Application.Json)]
     [Route("api/[controller]")]
+    [ApiDocument("Authentication", "Authentication", true)]
     public class AuthController : Controller
     {
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(AuthController));
@@ -53,6 +57,7 @@ namespace KBT.WebAPI.Training.Example.Controllers
         [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(AuthModel))]
         [SwaggerResponse((int)HttpStatusCode.Continue)]
         [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
+        [AllowAnonymous]
         public IActionResult Login([FromBody] LoginReq req)
         {
             var result = new object();
@@ -123,6 +128,7 @@ namespace KBT.WebAPI.Training.Example.Controllers
         [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(AuthModel))]
         [SwaggerResponse((int)HttpStatusCode.Continue)]
         [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
+        [AllowAnonymous]
         public IActionResult Refresh([FromBody] RefreshTokenReq req)
         {
             var result = new object();
@@ -196,6 +202,7 @@ namespace KBT.WebAPI.Training.Example.Controllers
         [SwaggerOperation(summary: "Logout")]
         [SwaggerResponse((int)HttpStatusCode.OK)]
         [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
+        [AllowAnonymous]
         public IActionResult Logout([FromBody] LogoutReq req)
         {
             var result = new object();

@@ -8,6 +8,8 @@ using KBT.WebAPI.Training.Example.Entities.Demo;
 using KBT.WebAPI.Training.Example.Models.Employees;
 using KBT.WebAPI.Training.Example.Models.Requests.Employees;
 using KBT.WebAPI.Training.Example.Utils;
+using KBT.WebAPI.Training.Example.Utils.Swagger;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -15,9 +17,11 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace KBT.WebAPI.Training.Example.Controllers
 {
+    [Authorize]
     [ApiController]
     [Produces(MediaTypeNames.Application.Json)]
     [Route("api/[controller]")]
+    [ApiDocument("Employee", "Employee", true)]
     public class EmployeesController : Controller
     {
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(EmployeesController));

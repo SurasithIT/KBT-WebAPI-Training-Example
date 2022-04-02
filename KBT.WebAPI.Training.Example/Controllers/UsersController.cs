@@ -8,6 +8,8 @@ using KBT.WebAPI.Training.Example.Entities.Demo;
 using KBT.WebAPI.Training.Example.Models.Requests.Users;
 using KBT.WebAPI.Training.Example.Models.Users;
 using KBT.WebAPI.Training.Example.Utils;
+using KBT.WebAPI.Training.Example.Utils.Swagger;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -15,9 +17,11 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace KBT.WebAPI.Training.Example.Controllers
 {
+    [Authorize]
     [ApiController]
     [Produces(MediaTypeNames.Application.Json)]
     [Route("api/[controller]")]
+    [ApiDocument("User", "User", true)]
     public class UsersController : Controller
     {
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(UsersController));
@@ -112,6 +116,7 @@ namespace KBT.WebAPI.Training.Example.Controllers
         [SwaggerResponse((int)HttpStatusCode.OK)]
         [SwaggerResponse((int)HttpStatusCode.Continue)]
         [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
+        [AllowAnonymous]
         public IActionResult CreateUser(UserReq userReq)
         {
             object result = new object();
