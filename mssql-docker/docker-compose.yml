@@ -1,7 +1,8 @@
 version: "3.9"
 services:
   sql-server:
-    image: mcr.microsoft.com/mssql/server:2019-CU15-ubuntu-20.04
+    image:  mcr.microsoft.com/azure-sql-edge:latest
+    # image: mcr.microsoft.com/mssql/server:2019-CU15-ubuntu-20.04
     # image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: sql-server
     ports:
