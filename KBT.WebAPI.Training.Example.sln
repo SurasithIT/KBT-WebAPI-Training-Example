@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1700.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KBT.WebAPI.Training.Example", "KBT.WebAPI.Training.Example\KBT.WebAPI.Training.Example.csproj", "{9C8BBDA3-3B30-4332-8B5A-83F793D22147}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KBT.WebAPI.Training.Example.WebAPI", "KBT.WebAPI.Training.Example.WebAPI\KBT.WebAPI.Training.Example.WebAPI.csproj", "{9C8BBDA3-3B30-4332-8B5A-83F793D22147}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KBT.WebAPI.Training.Example.Entities", "KBT.WebAPI.Training.Example.Entities\KBT.WebAPI.Training.Example.Entities.csproj", "{593BAB77-3CA5-4426-992B-40EC1CA83A8E}"
 EndProject
