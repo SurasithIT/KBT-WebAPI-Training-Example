@@ -35,7 +35,7 @@ try
     );
 
     // Install all service injection
-    Installer.InstallService(builder.Services);
+    Installer.InstallService(builder.Services, configuration);
 
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
