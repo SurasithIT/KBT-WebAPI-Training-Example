@@ -4,9 +4,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using AutoMapper;
 using KBT.WebAPI.Training.Example.Entities.Demo;
 using KBT.WebAPI.Training.Example.WebAPI.Models.Requests.Users;
 using KBT.WebAPI.Training.Example.WebAPI.Models.Users;
+using KBT.WebAPI.Training.Example.WebAPI.Services.Interfaces;
 using KBT.WebAPI.Training.Example.WebAPI.Utils;
 using KBT.WebAPI.Training.Example.WebAPI.Utils.Swagger;
 using Microsoft.AspNetCore.Authorization;
@@ -26,10 +28,14 @@ namespace KBT.WebAPI.Training.Example.WebAPI.Controllers
     {
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(typeof(UsersController));
         private readonly DemoDbContext _demoDbContext;
+        private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
-        public UsersController(DemoDbContext demoDbContext)
+        public UsersController(DemoDbContext demoDbContext, IMapper mapper, IUserService userService)
         {
             _demoDbContext = demoDbContext;
+            _mapper = mapper;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -268,6 +274,41 @@ namespace KBT.WebAPI.Training.Example.WebAPI.Controllers
                 return Ok(result);
             }
         }
+        
+        [HttpGet("FromDatabaseFactory")]
+        [SwaggerOperation(summary: "Get all users")]
+        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(List<UserModel>))]
+        [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
+        [AllowAnonymous]
+        public IActionResult GetUsersFromDatabaseFactory()
+        {
+            object result = new object();
+            try
+            {
+                List<User> _users = _userService.GetUsers().ToList();
+                List<UserModel> users = _mapper.Map<List<User>, List<UserModel>>(_users);
+
+                result = new
+                {
+                    status = (int)HttpStatusCode.OK,
+                    message = CommonMessages.SERVICE_SUCCESS,
+                    data = users
+                };
+                return Ok(result);
+            }
+            catch(Exception ex)
+            {
+                logger.Error(ex.Message, ex);
+
+                result = new
+                {
+                    status = (int)HttpStatusCode.InternalServerError,
+                    message = CommonMessages.SERVICE_ERROR,
+                };
+                return Ok(result);
+            }
+        }
+
     }
 }
 

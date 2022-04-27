@@ -1,5 +1,8 @@
 ﻿using System;
+using AutoMapper;
 using KBT.WebAPI.Training.Example.DatabaseFactory.Factory;
+using KBT.WebAPI.Training.Example.WebAPI.Repositories;
+using KBT.WebAPI.Training.Example.WebAPI.Repositories.Interfaces;
 using KBT.WebAPI.Training.Example.WebAPI.Services;
 using KBT.WebAPI.Training.Example.WebAPI.Services.Interfaces;
 
@@ -21,11 +24,23 @@ namespace KBT.WebAPI.Training.Example.WebAPI.Infrastructures
                 return database;
             });
             
+            // Auto Mapper Configurations
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+            
             // Add UserService
             _services.AddHttpContextAccessor();
 
             // Add AuthService
             _services.AddTransient<IAuthService, AuthService>();
+
+            _services.AddTransient<IUserRepository, UserRepository>();
+            _services.AddTransient<IUserService, UserService>();
 
         }
     }
