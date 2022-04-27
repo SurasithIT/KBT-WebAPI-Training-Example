@@ -4,6 +4,7 @@ using System.Xml;
 using KBT.WebAPI.Training.Example.Entities.Demo;
 using KBT.WebAPI.Training.Example.Entities.JWT;
 using KBT.WebAPI.Training.Example.WebAPI.Infrastructures;
+using KBT.WebAPI.Training.Example.WebAPI.Utils.GlobalErrorHandling;
 using KBT.WebAPI.Training.Example.WebAPI.Utils.Swagger;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -88,6 +89,8 @@ try
     });
 
     var app = builder.Build();
+
+    app.ConfigureExceptionHandler();
 
     using (var scope = app.Services.CreateScope())
     {

@@ -6,6 +6,7 @@ using System.Net.Mime;
 using System.Threading.Tasks;
 using AutoMapper;
 using KBT.WebAPI.Training.Example.Entities.Demo;
+using KBT.WebAPI.Training.Example.WebAPI.Models.ApiResponses;
 using KBT.WebAPI.Training.Example.WebAPI.Models.Requests.Users;
 using KBT.WebAPI.Training.Example.WebAPI.Models.Users;
 using KBT.WebAPI.Training.Example.WebAPI.Services.Interfaces;
@@ -276,37 +277,18 @@ namespace KBT.WebAPI.Training.Example.WebAPI.Controllers
         }
         
         [HttpGet("FromDatabaseFactory")]
-        [SwaggerOperation(summary: "Get all users")]
-        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(List<UserModel>))]
+        [SwaggerOperation(summary: "Get all users from database factory")]
+        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(ApiResponseWithDataEntity<List<UserModel>>))]
         [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
         [AllowAnonymous]
         public IActionResult GetUsersFromDatabaseFactory()
         {
             object result = new object();
-            try
-            {
+
                 List<User> _users = _userService.GetUsers().ToList();
                 List<UserModel> users = _mapper.Map<List<User>, List<UserModel>>(_users);
 
-                result = new
-                {
-                    status = (int)HttpStatusCode.OK,
-                    message = CommonMessages.SERVICE_SUCCESS,
-                    data = users
-                };
-                return Ok(result);
-            }
-            catch(Exception ex)
-            {
-                logger.Error(ex.Message, ex);
-
-                result = new
-                {
-                    status = (int)HttpStatusCode.InternalServerError,
-                    message = CommonMessages.SERVICE_ERROR,
-                };
-                return Ok(result);
-            }
+                return Ok(new ApiResponseWithDataEntity<List<UserModel>>(users));
         }
 
     }
