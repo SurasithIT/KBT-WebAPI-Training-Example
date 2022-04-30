@@ -48,14 +48,8 @@ namespace KBT.WebAPI.Training.Example.WebAPI.Controllers
             object result = new object();
             try
             {
-                List<UserModel> users = _demoDbContext.Users.Select(user => new UserModel
-                {
-                    UserKey = user.UserKey,
-                    UserName = user.UserName,
-                    IsActive = user.IsActive,
-                    EmployeeKey = (int)user.EmployeeKey
-                }).ToList();
-
+                IEnumerable<User> _users = _demoDbContext.Users;
+                List<UserModel> users = _mapper.Map<IEnumerable<UserModel>>(_users).ToList();
                 result = new
                 {
                     status = (int)HttpStatusCode.OK,
@@ -86,17 +80,9 @@ namespace KBT.WebAPI.Training.Example.WebAPI.Controllers
             object result = new object();
             try
             {
-                UserModel? user = _demoDbContext.Users
-                                    .Where(user => user.UserKey == userKey)
-                                    .Select(user => new UserModel
-                                    {
-                                        UserKey = user.UserKey,
-                                        UserName = user.UserName,
-                                        IsActive = user.IsActive,
-                                        EmployeeKey = (int)user.EmployeeKey
-                                    })
-                                    .FirstOrDefault();
-
+                User _user = _demoDbContext.Users.Where(user => user.UserKey == userKey).FirstOrDefault();
+                UserModel user = _mapper.Map<UserModel>(_user);
+                
                 result = new
                 {
                     status = (int)HttpStatusCode.OK,
@@ -140,13 +126,8 @@ namespace KBT.WebAPI.Training.Example.WebAPI.Controllers
                     return Ok(result);
                 }
 
-                User newUser = new User()
-                {
-                    UserName = userReq.UserName,
-                    Password = userReq.Password,
-                    IsActive = userReq.IsActive ?? false,
-                    EmployeeKey = userReq.EmployeeKey
-                };
+
+                User newUser = _mapper.Map<User>(userReq);
                 _demoDbContext.Users.Add(newUser);
                 _demoDbContext.SaveChanges();
 
@@ -290,7 +271,6 @@ namespace KBT.WebAPI.Training.Example.WebAPI.Controllers
 
                 return Ok(new ApiResponseWithDataEntity<List<UserModel>>(users));
         }
-
     }
 }
 
